@@ -13,5 +13,24 @@
         FROM tb_user
         WHERE id = #{id} AND pw = #{pw}
     </select>
+    
+    <update id="updateUser" parameterType="com.smhrd.model.userVO">
+        UPDATE tb_user
+        SET user_pw = #{pw},
+            user_name = #{name},
+            user_region = #{region}
+        WHERE user_id = #{id}
+    </update>
+    
+	<delete id="deleteUser" parameterType="String">
+	    DELETE FROM tb_user
+	    WHERE user_id = #{id}
+	</delete>
+
+    <select id="checkNameDuplicate" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM tb_user
+        WHERE user_name = #{name}
+    </select>
 <!-- tb_user -->
 </mapper>
