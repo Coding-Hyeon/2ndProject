@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smhrd.db.Mapper">
+
+<!-- tb_user -->
+	<insert id="insertUser" parameterType="com.smhrd.model.userVO">
+	    INSERT INTO tb_user (user_id, user_pw, user_name, user_gender, user_age, user_region, joined_at)
+	    VALUES (#{id}, #{pw}, #{name}, #{gender}, #{date}, #{region}, #{time})
+	</insert>
+
+    <select id="login" parameterType="com.smhrd.model.userVO" resultType="com.smhrd.model.userVO">
+        SELECT id, name, gender, region, date, time
+        FROM tb_user
+        WHERE id = #{id} AND pw = #{pw}
+    </select>
+<!-- tb_user -->
+</mapper>
