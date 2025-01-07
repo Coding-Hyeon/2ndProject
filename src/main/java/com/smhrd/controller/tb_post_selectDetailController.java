@@ -29,6 +29,6 @@ public class tb_post_selectDetailController extends HttpServlet {
         request.setAttribute("post", post);
         request.setAttribute("commentList", commentList);
 
-        request.getRequestDispatcher("postDetails.jsp").forward(request, response);
+        request.getRequestDispatcher("tb_post_postDetails.jsp").forward(request, response);
     }
 }

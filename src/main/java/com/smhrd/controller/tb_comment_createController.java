@@ -29,9 +29,9 @@ public class tb_comment_createController extends HttpServlet {
         int result = dao.createComment(comment);
 
         if (result > 0) {
-            response.sendRedirect("postDetails?postIdx=" + postIdx);
+            response.sendRedirect("tb_post_postDetails?postIdx=" + postIdx);
         } else {
-            response.sendRedirect("postDetails?postIdx=" + postIdx + "&error=commentFail");
+            response.sendRedirect("tb_post_postDetails?postIdx=" + postIdx + "&error=commentFail");
         }
     }
 }

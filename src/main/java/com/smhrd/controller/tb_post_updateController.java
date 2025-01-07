@@ -26,9 +26,9 @@ public class tb_post_updateController extends HttpServlet {
         int result = dao.updatePost(post);
 
         if (result > 0) {
-            response.sendRedirect("postDetails?postIdx=" + postIdx);
+            response.sendRedirect("tb_post_postDetails?postIdx=" + postIdx);
         } else {
-            response.sendRedirect("editPost.jsp?postIdx=" + postIdx + "&error=updateFail");
+            response.sendRedirect("tb_post_updatePost.jsp?postIdx=" + postIdx + "&error=updateFail");
         }
     }
 }

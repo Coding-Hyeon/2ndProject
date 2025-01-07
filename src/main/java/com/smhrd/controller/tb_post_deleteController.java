@@ -19,9 +19,9 @@ public class tb_post_deleteController extends HttpServlet {
         int result = dao.deletePost(postIdx);
 
         if (result > 0) {
-            response.sendRedirect("partyPosts?success=delete");
+            response.sendRedirect("tb_post_partyPost?success=delete");
         } else {
-            response.sendRedirect("postDetails?postIdx=" + postIdx + "&error=deleteFail");
+            response.sendRedirect("tb_post_postDetails?postIdx=" + postIdx + "&error=deleteFail");
         }
     }
 }

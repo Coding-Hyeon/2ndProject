@@ -24,6 +24,6 @@ public class tb_post_selectController extends HttpServlet {
         request.setAttribute("postList", postList);
         request.setAttribute("partyIdx", partyIdx);
 
-        request.getRequestDispatcher("partyPosts.jsp").forward(request, response);
+        request.getRequestDispatcher("tb_post_partyPost.jsp").forward(request, response);
     }
 }

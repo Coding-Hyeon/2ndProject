@@ -19,9 +19,9 @@ public class tb_comment_deleteController extends HttpServlet {
         int result = dao.deleteComment(commentIdx);
 
         if (result > 0) {
-            response.sendRedirect("postDetails?success=deleteComment");
+            response.sendRedirect("tb_post_postDetails?success=deleteComment");
         } else {
-            response.sendRedirect("postDetails?error=deleteCommentFail");
+            response.sendRedirect("tb_post_postDetails?error=deleteCommentFail");
         }
     }
 }

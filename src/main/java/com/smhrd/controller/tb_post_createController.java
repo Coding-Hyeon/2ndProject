@@ -31,9 +31,9 @@ public class tb_post_createController extends HttpServlet {
         int result = dao.createPost(post);
 
         if (result > 0) {
-            response.sendRedirect("partyPosts?partyIdx=" + partyIdx);
+            response.sendRedirect("tb_party_partyPost?partyIdx=" + partyIdx);
         } else {
-            response.sendRedirect("createPost.jsp?partyIdx=" + partyIdx + "&error=createFail");
+            response.sendRedirect("tb_party_createPost.jsp?partyIdx=" + partyIdx + "&error=createFail");
         }
     }
 }
