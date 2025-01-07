@@ -36,12 +36,12 @@ public class tb_party_createController extends HttpServlet {
             int result = dao.createParty(party);
 
             if (result > 0) {
-                response.sendRedirect("main.jsp?success=create");
+                response.sendRedirect("tb_party_main.jsp?success=create");
             } else {
-                response.sendRedirect("createParty.jsp?error=createFail");
+                response.sendRedirect("tb_party_createParty.jsp?error=createFail");
             }
         } else {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("tb_user_login.jsp");
         }
     }
 }

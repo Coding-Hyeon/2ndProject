@@ -32,9 +32,9 @@ public class tb_party_selectController extends HttpServlet {
             request.setAttribute("partyList", partyList);
 
             // main.jsp로 이동
-            request.getRequestDispatcher("main.jsp").forward(request, response);
+            request.getRequestDispatcher("tb_party_main.jsp").forward(request, response);
         } else {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("tb_user_login.jsp");
         }
     }
 }

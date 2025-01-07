@@ -28,7 +28,7 @@ public class tb_user_loginController extends HttpServlet {
             // 로그인 성공 - 세션에 사용자 정보 저장
             HttpSession session = request.getSession();
             session.setAttribute("loginUser", user); // 사용자 정보를 세션에 저장
-            response.sendRedirect("tb_user_loginSucess.jsp"); // 메인 페이지로 리다이렉트
+            response.sendRedirect("tb_party_main.jsp"); // 메인 페이지로 리다이렉트
         } else {
             // 로그인 실패 - 로그인 페이지로 돌아가기
             response.sendRedirect("tb_user_login.jsp?error=invalid");

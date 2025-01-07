@@ -23,6 +23,6 @@ public class tb_joining_accessController extends HttpServlet {
             dao.rejectJoinRequest(joinIdx);
         }
 
-        response.sendRedirect("joinRequests?success=" + action);
+        response.sendRedirect("tb_joining_joinRequests?success=" + action);
     }
 }
