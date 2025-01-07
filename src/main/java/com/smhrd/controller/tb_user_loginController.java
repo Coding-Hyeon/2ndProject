@@ -25,7 +25,7 @@ public class tb_user_loginController extends HttpServlet {
         if (user != null) {
             HttpSession session = request.getSession();
             session.setAttribute("loginUser", user);
-            response.sendRedirect("tb_party_main");
+            response.sendRedirect("tb_party_main.jsp");
         } else {
             response.sendRedirect("tb_user_login.jsp?error=invalid");
         }
