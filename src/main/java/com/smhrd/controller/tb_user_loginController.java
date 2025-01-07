@@ -16,21 +16,21 @@ public class tb_user_loginController extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        // 사용자 입력값
         String id = request.getParameter("user_id");
         String pw = request.getParameter("user_pw");
 
-        // DAO 호출
+        // 로그 출력
+        System.out.println("로그인 요청 ID: " + id);
+        System.out.println("로그인 요청 PW: " + pw);
+
         userDAO dao = new userDAO();
         userVO user = dao.login(id, pw);
 
         if (user != null) {
-            // 로그인 성공 - 세션에 사용자 정보 저장
             HttpSession session = request.getSession();
-            session.setAttribute("loginUser", user); // 사용자 정보를 세션에 저장
-            response.sendRedirect("tb_party_main"); // 메인 페이지로 리다이렉트
+            session.setAttribute("loginUser", user);
+            response.sendRedirect("tb_party_main");
         } else {
-            // 로그인 실패 - 로그인 페이지로 돌아가기
             response.sendRedirect("tb_user_login.jsp?error=invalid");
         }
     }
