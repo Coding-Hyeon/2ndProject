@@ -49,6 +49,21 @@
 	    LEFT JOIN tb_user u ON p.user_id = u.user_id
 	    WHERE p.party_region = #{region}
 	</select>
+	
+	<select id="getPartyById" parameterType="int" resultType="com.smhrd.model.partyVO">
+	    SELECT * FROM tb_party WHERE party_idx = #{partyIdx}
+	</select>
+	
+	<update id="updatePartyInfoAndFile" parameterType="map">
+	    UPDATE tb_party
+	    SET party_info = #{partyInfo},
+	        party_file = #{partyFile}
+	    WHERE party_idx = #{partyIdx}
+	</update>
+	
+	<delete id="deleteParty" parameterType="int">
+	    DELETE FROM tb_party WHERE party_idx = #{partyIdx}
+	</delete>
 
 <!-- tb_party -->
     
@@ -81,4 +96,44 @@
 	    WHERE join_idx = #{joinIdx}
 	</delete>
 <!-- tb_joining -->
+
+<!-- tb_post -->
+	<insert id="createPost" parameterType="com.smhrd.model.postVO">
+	    INSERT INTO tb_party_post (p_post_nm, p_post_content, p_post_file, p_post_views, p_post_like, created_at, user_id, party_idx)
+	    VALUES (#{postNm}, #{postContent}, #{postFile}, 0, 0, CURRENT_TIMESTAMP, #{userId}, #{partyIdx})
+	</insert>
+	
+	<select id="getPostsByParty" parameterType="int" resultType="com.smhrd.model.postVO">
+	    SELECT * FROM tb_party_post WHERE party_idx = #{partyIdx} ORDER BY created_at DESC
+	</select>
+	
+	<select id="getPostById" parameterType="int" resultType="com.smhrd.model.postVO">
+	    SELECT * FROM tb_party_post WHERE p_post_idx = #{postIdx}
+	</select>
+	
+	<update id="updatePost" parameterType="com.smhrd.model.postVO">
+	    UPDATE tb_party_post
+	    SET p_post_nm = #{postNm}, p_post_content = #{postContent}, p_post_file = #{postFile}
+	    WHERE p_post_idx = #{postIdx}
+	</update>
+	
+	<delete id="deletePost" parameterType="int">
+	    DELETE FROM tb_party_post WHERE p_post_idx = #{postIdx}
+	</delete>
+<!-- tb_post -->
+
+<!-- tb_comment -->
+	<insert id="createComment" parameterType="com.smhrd.model.commentVO">
+	    INSERT INTO tb_party_comment (p_post_idx, p_cmt_content, created_at, user_id)
+	    VALUES (#{postIdx}, #{content}, CURRENT_TIMESTAMP, #{userId})
+	</insert>
+	
+	<select id="getCommentsByPost" parameterType="int" resultType="com.smhrd.model.commentVO">
+	    SELECT * FROM tb_party_comment WHERE p_post_idx = #{postIdx} ORDER BY created_at ASC
+	</select>
+	
+	<delete id="deleteComment" parameterType="int">
+	    DELETE FROM tb_party_comment WHERE p_cmt_idx = #{commentIdx}
+	</delete>
+<!-- tb_comment -->
 </mapper>
