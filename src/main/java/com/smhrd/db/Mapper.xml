@@ -9,7 +9,13 @@
 	</insert>
 
 	<select id="login" parameterType="map" resultType="com.smhrd.model.userVO">
-	    SELECT user_id, user_pw, user_name, user_gender, user_age, user_region, joined_at
+	    SELECT user_id AS id,
+	           user_pw AS pw,
+	           user_name AS name,
+	           user_gender AS gender,
+	           user_age AS date,
+	           user_region AS region,
+	           joined_at AS time
 	    FROM tb_user
 	    WHERE user_id = #{id} AND user_pw = #{pw}
 	</select>
