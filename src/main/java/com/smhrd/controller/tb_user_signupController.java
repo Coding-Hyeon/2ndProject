@@ -38,7 +38,7 @@ public class tb_user_signupController extends HttpServlet {
 
         // 결과 처리
         if (result > 0) {
-            response.sendRedirect("tb_user_loginSuccess.jsp"); // 성공 페이지
+            response.sendRedirect("tb_user_loginSucess.jsp"); // 성공 페이지
         } else {
             response.sendRedirect("tb_user_login.jsp"); // 실패 페이지
         }
