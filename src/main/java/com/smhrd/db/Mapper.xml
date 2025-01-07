@@ -33,4 +33,22 @@
         WHERE user_name = #{name}
     </select>
 <!-- tb_user -->
+
+<!-- tb_joining -->
+
+<insert id="createParty" parameterType="com.smhrd.model.partyVO">
+    INSERT INTO tb_party (party_nm, party_info, party_region, party_file, created_at, user_id)
+    VALUES (#{partyNm}, #{partyInfo}, #{partyRegion}, #{partyFile}, CURRENT_TIMESTAMP, #{userId})
+</insert>
+
+<select id="getPartiesByRegion" parameterType="String" resultType="com.smhrd.model.partyVO">
+    SELECT p.party_idx, p.party_nm, p.party_info, p.party_region, p.party_file, p.created_at, p.user_id, 
+           (SELECT COUNT(*) FROM tb_joining j WHERE j.party_idx = p.party_idx) AS member_count,
+           u.user_name AS creator_name
+    FROM tb_party p
+    LEFT JOIN tb_user u ON p.user_id = u.user_id
+    WHERE p.party_region = #{region}
+</select>
+    
+<!-- tb_joining -->
 </mapper>
