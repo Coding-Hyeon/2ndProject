@@ -1,5 +1,8 @@
 package com.smhrd.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -29,12 +32,23 @@ public class userDAO {
     
     // 로그인 메서드
     public userVO login(String id, String pw) {
-		SqlSession session = factory.openSession();
+        SqlSession session = factory.openSession();
         userVO user = null;
 
         try {
+            // 파라미터를 Map으로 전달
+            Map<String, Object> param = new HashMap<>();
+            param.put("id", id);
+            param.put("pw", pw);
+
             // MyBatis Mapper 호출
-            user = session.selectOne("com.smhrd.db.Mapper.login", new userVO(id, pw, null, '\0', null, null, null));
+            user = session.selectOne("com.smhrd.db.Mapper.login", param);
+
+            if (user == null) {
+                System.out.println("로그인 실패: ID 또는 PW가 올바르지 않습니다.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             session.close();
         }
