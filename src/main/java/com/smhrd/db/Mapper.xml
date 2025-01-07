@@ -9,9 +9,9 @@
 	</insert>
 
     <select id="login" parameterType="com.smhrd.model.userVO" resultType="com.smhrd.model.userVO">
-        SELECT id, name, gender, region, date, time
+        SELECT user_id, user_pw, user_name, user_gender, user_age, user_region, joined_at
         FROM tb_user
-        WHERE id = #{id} AND pw = #{pw}
+        WHERE user_id = #{id} AND user_pw = #{pw}
     </select>
     
     <update id="updateUser" parameterType="com.smhrd.model.userVO">
