@@ -19,10 +19,6 @@ public class tb_user_loginController extends HttpServlet {
         String id = request.getParameter("user_id");
         String pw = request.getParameter("user_pw");
 
-        // 로그 출력
-        System.out.println("로그인 요청 ID: " + id);
-        System.out.println("로그인 요청 PW: " + pw);
-
         userDAO dao = new userDAO();
         userVO user = dao.login(id, pw);
 
