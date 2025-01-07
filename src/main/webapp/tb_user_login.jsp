@@ -8,16 +8,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-    <h1>로그인</h1>
+    <h1>Login</h1>
     <form action="login" method="post">
-        <label for="user_id">아이디:</label>
-        <input type="text" id="user_id" name="user_id" required>
+        <label for="user_id">User ID:</label>
+        <input type="text" name="user_id" id="user_id" required>
         <br>
-        <label for="user_pw">비밀번호:</label>
-        <input type="password" id="user_pw" name="user_pw" required>
+        <label for="user_pw">Password:</label>
+        <input type="password" name="user_pw" id="user_pw" required>
         <br>
-        <button type="submit">로그인</button>
+        <button type="submit">Login</button>
     </form>
+    <a href="tb_user_signup.jsp">Sign Up</a>
     
     <!-- 로그인 실패 메시지 표시 -->
     <c:if test="${param.error == 'invalid'}">
