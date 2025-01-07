@@ -8,11 +8,11 @@
 	    VALUES (#{id}, #{pw}, #{name}, #{gender}, #{date}, #{region}, #{time})
 	</insert>
 
-    <select id="login" parameterType="com.smhrd.model.userVO" resultType="com.smhrd.model.userVO">
-        SELECT user_id, user_pw, user_name, user_gender, user_age, user_region, joined_at
-        FROM tb_user
-        WHERE user_id = #{id} AND user_pw = #{pw}
-    </select>
+	<select id="login" parameterType="map" resultType="com.smhrd.model.userVO">
+	    SELECT user_id, user_pw, user_name, user_gender, user_age, user_region, joined_at
+	    FROM tb_user
+	    WHERE user_id = #{id} AND user_pw = #{pw}
+	</select>
     
     <update id="updateUser" parameterType="com.smhrd.model.userVO">
         UPDATE tb_user
