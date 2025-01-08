@@ -26,7 +26,7 @@
             </div>
             <div>
                 <label for="userNm">이름:</label>
-                <input type="text" id="userNm" name="userNm" required>
+                <input type="text" id="userName" name="userName" required>
             </div>
             <div>
                 <label for="userGender">성별:</label>

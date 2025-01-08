@@ -25,7 +25,7 @@ public class UserDAO {
         SqlSession session = sqlSessionFactory.openSession();
         UserVO user = null;
         try {
-            user = session.selectOne("com.smhrd.db.Mapper.loginUser", new UserVO(userId, userPw, null, null, null, null));
+            user = session.selectOne("com.smhrd.db.Mapper.loginUser", new UserVO(userId, userPw, null, null, null, null, null));
         } finally {
             session.close();
         }

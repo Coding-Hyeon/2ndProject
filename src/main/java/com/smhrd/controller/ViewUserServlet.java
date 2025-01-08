@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.smhrd.model.UserDAO;
 import com.smhrd.model.UserVO;
 
 @WebServlet("/viewUser")
@@ -22,16 +20,7 @@ public class ViewUserServlet extends HttpServlet {
             return;
         }
 
-        String userId = user.getUserId();
-
-        UserDAO dao = new UserDAO();
-        UserVO userInfo = dao.selectUserById(userId);
-
-        if (userInfo != null) {
-            request.setAttribute("userInfo", userInfo);
-            request.getRequestDispatcher("myPage.jsp").forward(request, response);
-        } else {
-            response.sendRedirect("main.jsp");
-        }
+        request.setAttribute("userInfo", user);
+        request.getRequestDispatcher("myPage.jsp").forward(request, response); // 경로 확인
     }
 }
