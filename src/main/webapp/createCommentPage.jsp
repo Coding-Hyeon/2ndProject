@@ -9,7 +9,7 @@
 <body>
     <!-- Header -->
     <header>
-        <h1>메인 페이지</h1>
+        <h1>댓글 작성</h1>
         <nav>
             <button onclick="location.href='myPage.jsp'">마이페이지</button>
             <button onclick="location.href='logoutProcess'">로그아웃</button>
@@ -18,15 +18,19 @@
 
     <!-- Main Content -->
     <main>
-        <section>
-            <h2>무엇을 하시겠습니까?</h2>
+        <form action="createCommentProcess" method="post">
+            <input type="hidden" name="postId" value="1"> <!-- 댓글이 달릴 게시글 ID -->
             <div>
-                <button onclick="location.href='findParty.jsp'">모임 찾기</button>
+                <label for="commentContent">댓글 내용:</label>
+                <textarea id="commentContent" name="commentContent" rows="5" required></textarea>
             </div>
             <div>
-                <button onclick="location.href='myParty.jsp'">나의 모임</button>
+                <button type="submit">확인</button>
             </div>
-        </section>
+        </form>
+        <div>
+            <button onclick="location.href='partyRoom.jsp'">뒤로 가기</button>
+        </div>
     </main>
 
     <!-- Footer -->

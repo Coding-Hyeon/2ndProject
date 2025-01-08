@@ -1,36 +1,23 @@
- 	<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
 <title>Insert title here</title>
-<style>
-    div {
-        width: 100%;
-        padding: 10px;
-        background-color: #f4f4f4;
-        border-bottom: 1px solid #ddd;
-    }
-    span a {
-        margin-right: 15px;
-        text-decoration: none;
-        color: #000;
-    }
-    span a:hover {
-        text-decoration: underline;
-    }
-</style>
 </head>
 <body>
-	<div style="width: 100%; padding: 10px; background-color: #f4f4f4; border-bottom: 1px solid #ddd;">
-	    <span style="float: left;">
-	        <a href="main.jsp">홈</a>
-	    </span>
-	    <span style="float: right;">
-	        <a href="mypage.jsp">마이페이지</a>
-	        <a href="logout">로그아웃</a>
-	    </span>
-	</div>
+    <header>
+        <h1>YourWebsite</h1>
+        <nav>
+            <ul>
+                <li><a href="main.jsp">메인 페이지</a></li>
+                <li><a href="myPage.jsp">마이페이지</a></li>
+                <li><a href="logoutProcess">로그아웃</a></li>
+            </ul>
+        </nav>
+    </header>
 </body>
 </html>

@@ -7,22 +7,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import com.smhrd.model.UserDAO;
+import com.smhrd.model.UserVO;
 
-import com.smhrd.model.userDAO;
-import com.smhrd.model.userVO;
-
-@WebServlet("/login")
-public class userLoginController extends HttpServlet {
+@WebServlet("/loginProcess")
+public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String id = request.getParameter("user_id");
-        String pw = request.getParameter("user_pw");
-        
-        userDAO dao = new userDAO();
-        userVO user = dao.login(id, pw);
+        String userId = request.getParameter("userId");
+        String userPw = request.getParameter("userPw");
+
+        UserDAO dao = new UserDAO();
+        UserVO user = dao.loginUser(userId, userPw);
 
         if (user != null) {
             HttpSession session = request.getSession();
-            session.setAttribute("loginUser", user);
+            session.setAttribute("user", user);
             response.sendRedirect("main.jsp");
         } else {
             response.sendRedirect("login.jsp?error=invalid");
