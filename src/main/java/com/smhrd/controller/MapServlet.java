@@ -1,6 +1,6 @@
 package com.smhrd.controller;
 
-import com.smhrd.model.locationDAO;
+import com.smhrd.model.LocationDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Map;
 
 @WebServlet("/map") // "/map" URL로 매핑
-public class mapController extends HttpServlet {
+public class MapServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -21,7 +21,7 @@ public class mapController extends HttpServlet {
             int postIdx = Integer.parseInt(request.getParameter("postIdx"));
 
             // DAO를 통해 위치 정보 가져오기
-            locationDAO locationDAO = new locationDAO();
+            LocationDAO locationDAO = new LocationDAO();
             Map<String, Object> location = locationDAO.getLocation(postIdx);
 
             // 위치 정보가 있을 경우 request 속성으로 전달

@@ -8,7 +8,7 @@ import com.smhrd.db.SqlSessionManager;
 import java.util.HashMap;
 import java.util.Map;
 
-public class locationDAO {
+public class LocationDAO {
     private SqlSessionFactory sqlSessionFactory = SqlSessionManager.getSqlSession();
 
     public Map<String, Object> getLocation(int postIdx) {
