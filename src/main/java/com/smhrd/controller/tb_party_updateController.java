@@ -24,9 +24,9 @@ public class tb_party_updateController extends HttpServlet {
         int result = dao.updatePartyInfoAndFile(partyIdx, partyInfo, partyFile);
 
         if (result > 0) {
-            response.sendRedirect("tb_joining_partyDetails?partyIdx=" + partyIdx + "&success=update");
+            response.sendRedirect("partyDetails?partyIdx=" + partyIdx + "&success=update");
         } else {
-            response.sendRedirect("tb_joining_partyDetails?partyIdx=" + partyIdx + "&error=updateFail");
+            response.sendRedirect("partyDetails?partyIdx=" + partyIdx + "&error=updateFail");
         }
     }
 }

@@ -26,12 +26,12 @@ public class tb_joining_controller extends HttpServlet {
             int result = dao.applyJoining(joining);
 
             if (result > 0) {
-                response.sendRedirect("tb_joning_partyDetails?partyIdx=" + partyIdx + "&success=apply");
+                response.sendRedirect("partyDetails?partyIdx=" + partyIdx + "&success=apply");
             } else {
-                response.sendRedirect("tb_joning_partyDetails?partyIdx=" + partyIdx + "&error=applyFail");
+                response.sendRedirect("partyDetails?partyIdx=" + partyIdx + "&error=applyFail");
             }
         } else {
-            response.sendRedirect("tb_user_login.jsp");
+            response.sendRedirect("login.jsp");
         }
     }
 }

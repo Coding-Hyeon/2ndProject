@@ -33,12 +33,12 @@ public class tb_party_deleteController extends HttpServlet {
         if (party.getUserId().equals(loginUser.getId())) {
             int result = dao.deleteParty(partyIdx);
             if (result > 0) {
-                response.sendRedirect("tb_party_main.jsp?success=delete");
+                response.sendRedirect("main.jsp?success=delete");
             } else {
-                response.sendRedirect("tb_joining_partyDetails.jsp?partyIdx=" + partyIdx + "&error=deleteFail");
+                response.sendRedirect("partyDetails.jsp?partyIdx=" + partyIdx + "&error=deleteFail");
             }
         } else {
-            response.sendRedirect("tb_joining_partyDetails.jsp?partyIdx=" + partyIdx + "&error=notAuthorized");
+            response.sendRedirect("partyDetails.jsp?partyIdx=" + partyIdx + "&error=notAuthorized");
         }
     }
 }

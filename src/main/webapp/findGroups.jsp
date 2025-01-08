@@ -13,7 +13,7 @@
         <button onclick="location.href='logout'">로그아웃</button>
     </header>
     <h2>모임 찾기</h2>
-    <button onclick="location.href='createParty.jsp'">모임 생성</button>
+    <button onclick="location.href='partyCreate.jsp'">모임 생성</button>
     <c:forEach var="party" items="${partyList}">
         <div>
             <h3>${party.partyNm}</h3>

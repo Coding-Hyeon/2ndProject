@@ -28,7 +28,7 @@ public class tb_post_updateController extends HttpServlet {
         if (result > 0) {
             response.sendRedirect("tb_post_postDetails?postIdx=" + postIdx);
         } else {
-            response.sendRedirect("tb_post_updatePost.jsp?postIdx=" + postIdx + "&error=updateFail");
+            response.sendRedirect("partyUpdate.jsp?postIdx=" + postIdx + "&error=updateFail");
         }
     }
 }
