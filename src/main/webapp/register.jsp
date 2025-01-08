@@ -58,15 +58,24 @@
     </footer>
 
     <script>
-        function checkIdDuplicate() {
-            const userId = document.getElementById('userId').value;
-            if (!userId) {
-                alert('아이디를 입력해주세요.');
-                return;
-            }
-            // 여기서 Ajax 요청으로 중복 확인 구현 가능
-            alert('중복 확인 기능 미구현.');
+    <script>
+    function checkDuplicateId() {
+        const userId = document.getElementById("userId").value;
+        if (!userId) {
+            document.getElementById("idCheckResult").innerText = "아이디를 입력하세요.";
+            return;
         }
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", `checkId?userId=${userId}`, true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                document.getElementById("idCheckResult").innerText = xhr.responseText;
+            }
+        };
+        xhr.send();
+    }
+</script>
     </script>
 </body>
 </html>

@@ -31,6 +31,11 @@
         DELETE FROM tb_user WHERE user_id = #{userId};
     </delete>
     
+    <!-- 아이디 중복 확인 -->
+    <select id="checkDuplicateId" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM tb_user WHERE user_id = #{userId};
+    </select>
+    
 
 
     <!-- 지역에 맞는 모든 모임 가져오기 -->

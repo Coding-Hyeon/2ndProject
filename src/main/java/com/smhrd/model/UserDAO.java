@@ -67,4 +67,17 @@ public class UserDAO {
         }
         return cnt;
     }
+    
+    // 아이디 중복 확인
+    public boolean checkDuplicateId(String userId) {
+        SqlSession session = sqlSessionFactory.openSession();
+        boolean exists = false;
+        try {
+            int count = session.selectOne("com.smhrd.db.Mapper.checkDuplicateId", userId);
+            exists = count > 0;
+        } finally {
+            session.close();
+        }
+        return exists;
+    }
 }
