@@ -104,7 +104,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.33</version> <!-- 사용 중인 MySQL 버전에 맞게 변경 -->
+			<version>8.0.28</version>
 		</dependency>
 	</dependencies>
 
