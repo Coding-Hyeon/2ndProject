@@ -1,5 +1,15 @@
+<%@page import="com.smhrd.model.UserVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page session="true" %>
+<%
+    UserVO user = (UserVO) session.getAttribute("user");
+    if (user == null) {
+        // 로그인되지 않은 경우 로그인 페이지로 이동
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html>
 <head>

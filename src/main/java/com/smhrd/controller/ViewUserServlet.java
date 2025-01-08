@@ -16,11 +16,12 @@ public class ViewUserServlet extends HttpServlet {
         UserVO user = (UserVO) session.getAttribute("user");
 
         if (user == null) {
+            // 로그인 정보가 없으면 로그인 페이지로 이동
             response.sendRedirect("login.jsp");
-            return;
+        } else {
+            // 로그인된 상태라면 마이페이지로 이동
+            request.setAttribute("userInfo", user);
+            request.getRequestDispatcher("myPage.jsp").forward(request, response);
         }
-
-        request.setAttribute("userInfo", user);
-        request.getRequestDispatcher("myPage.jsp").forward(request, response); // 경로 확인
     }
 }
