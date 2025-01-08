@@ -13,8 +13,8 @@
       <transactionManager type="JDBC"/>
       <dataSource type="POOLED">
         <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://172.30.1.6:3306/youdong_db?serverTimezone=UTC&amp;characterEncoding=UTF-8"/>
-        <property name="username" value="YOUDONG1"/>
+        <property name="url" value="jdbc:mysql://172.30.1.6:3306/yudongdb?serverTimezone=UTC&amp;characterEncoding=UTF-8"/>
+        <property name="username" value="YUDONG1"/>
         <property name="password" value="1234"/>
       </dataSource>
     </environment>

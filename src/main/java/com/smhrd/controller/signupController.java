@@ -10,17 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.smhrd.model.userVO;
 import com.smhrd.model.userDAO;
+import com.smhrd.model.userVO;
 
 @WebServlet("/SignupController")
-public class tb_user_signupController extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // 한글 데이터 인코딩 설정
+public class signupController extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        // 파라미터 가져오기
         String id = request.getParameter("id");
         String pw = request.getParameter("pw");
         String name = request.getParameter("name");
@@ -29,18 +26,14 @@ public class tb_user_signupController extends HttpServlet {
         String region = request.getParameter("region");
         LocalDateTime time = LocalDateTime.now();
 
-        // VO 생성
         userVO user = new userVO(id, pw, name, gender, date, region, time);
-        
-        // DAO 호출
         userDAO dao = new userDAO();
         int result = dao.insertUser(user);
 
-        // 결과 처리
         if (result > 0) {
-            response.sendRedirect("login.jsp"); // 성공 페이지
+            response.sendRedirect("login.jsp");
         } else {
-            response.sendRedirect("sign.jsp"); // 실패 페이지
+            response.sendRedirect("signup.jsp?error=signupFail");
         }
     }
 }

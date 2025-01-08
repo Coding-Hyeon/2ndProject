@@ -17,8 +17,8 @@ public class userVO {
 	private String pw;
 	private String name;
 	private char gender;
-	private LocalDate date;
-	private String region;
+	private LocalDate age;
+	private String urg;
 	private LocalDateTime time;
 
 }

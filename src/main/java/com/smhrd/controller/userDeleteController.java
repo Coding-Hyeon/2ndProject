@@ -7,13 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import com.smhrd.model.userDAO;
 import com.smhrd.model.userVO;
 
 @WebServlet("/deleteUser")
-public class tb_user_deleteController extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+public class userDeleteController extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         userVO loginUser = (userVO) session.getAttribute("loginUser");
 
@@ -22,7 +22,6 @@ public class tb_user_deleteController extends HttpServlet {
             int result = dao.deleteUser(loginUser.getId());
 
             if (result > 0) {
-                // 세션 초기화 및 로그아웃 처리
                 session.invalidate();
                 response.sendRedirect("login.jsp?success=delete");
             } else {

@@ -8,11 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/logout")
-public class tb_user_logoutController extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // 세션 초기화 및 로그아웃
+public class userLogoutController extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 세션 무효화
         request.getSession().invalidate();
+        // 로그인 페이지로 이동
         response.sendRedirect("login.jsp");
     }
 }

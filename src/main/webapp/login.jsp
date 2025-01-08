@@ -7,15 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-    <h2>로그인</h2>
-    <form action="login" method="post">
-        <label for="user_id">아이디:</label>
-        <input type="text" id="user_id" name="user_id" required><br><br>
-        <label for="user_pw">비밀번호:</label>
-        <input type="password" id="user_pw" name="user_pw" required><br><br>
-        <button type="submit">로그인</button>
-    </form>
-    <br>
-    <button onclick="location.href='sign.jsp'">회원가입</button>
+	<form action="login" method="post">
+	    <input type="text" name="user_id" placeholder="ID" required>
+	    <input type="password" name="user_pw" placeholder="Password" required>
+	    <button type="submit">로그인</button>
+	    <button type="button" onclick="location.href='signup.jsp'">회원가입</button>
+	</form>
 </body>
 </html>

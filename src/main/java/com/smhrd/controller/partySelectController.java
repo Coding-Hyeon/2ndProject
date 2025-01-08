@@ -1,4 +1,3 @@
-// MyGroupsController.java
 package com.smhrd.controller;
 
 import java.io.IOException;
@@ -15,24 +14,19 @@ import com.smhrd.model.partyDAO;
 import com.smhrd.model.partyVO;
 import com.smhrd.model.userVO;
 
-@WebServlet("/myGroups")
-public class tb_party_myGroupsController extends HttpServlet {
+@WebServlet("/main")
+public class partySelectController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         userVO loginUser = (userVO) session.getAttribute("loginUser");
 
         if (loginUser != null) {
-            String userId = loginUser.getId();
-
+            String userRegion = loginUser.getUrg();
             partyDAO dao = new partyDAO();
-            List<partyVO> myGroups = dao.getMyGroups(userId);
+            List<partyVO> partyList = dao.getPartiesByRegion(userRegion);
 
-            if (myGroups != null) {
-                request.setAttribute("myGroups", myGroups);
-                request.getRequestDispatcher("myGroups.jsp").forward(request, response);
-            } else {
-                response.sendRedirect("main.jsp?error=noGroups");
-            }
+            request.setAttribute("partyList", partyList);
+            request.getRequestDispatcher("main.jsp").forward(request, response);
         } else {
             response.sendRedirect("login.jsp");
         }
