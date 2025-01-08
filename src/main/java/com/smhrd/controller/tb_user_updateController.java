@@ -28,7 +28,7 @@ public class tb_user_updateController extends HttpServlet {
 
             // 이름 중복 검사
             if (dao.isNameDuplicated(name) && !name.equals(loginUser.getName())) {
-                response.sendRedirect("tb_user_mypage.jsp?error=duplicateName");
+                response.sendRedirect("mypage.jsp?error=duplicateName");
                 
                 return;
             }
@@ -41,12 +41,12 @@ public class tb_user_updateController extends HttpServlet {
             int result = dao.updateUser(loginUser);
             if (result > 0) {
                 session.setAttribute("loginUser", loginUser); // 세션 업데이트
-                response.sendRedirect("tb_user_mypage.jsp?success=update");
+                response.sendRedirect("mypage.jsp?success=update");
             } else {
-                response.sendRedirect("tb_user_mypage.jsp?error=updateFail");
+                response.sendRedirect("mypage.jsp?error=updateFail");
             }
         } else {
-            response.sendRedirect("tb_user_login.jsp");
+            response.sendRedirect("login.jsp");
         }
     }
 }

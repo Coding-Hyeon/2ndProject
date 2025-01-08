@@ -71,6 +71,12 @@
 	    DELETE FROM tb_party WHERE party_idx = #{partyIdx}
 	</delete>
 
+	<select id="getMyGroups" parameterType="String" resultType="com.smhrd.model.partyVO">
+	    SELECT p.party_idx, p.party_nm, p.party_info, p.party_region, p.created_at, p.user_id AS ownerId, j.joined_at
+	    FROM tb_party p
+	    JOIN tb_joining j ON p.party_idx = j.party_idx
+	    WHERE j.user_id = #{userId} AND j.agree_yn = 'Y'
+	</select>
 <!-- tb_party -->
     
 <!-- tb_joining -->

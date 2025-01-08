@@ -24,12 +24,12 @@ public class tb_user_deleteController extends HttpServlet {
             if (result > 0) {
                 // 세션 초기화 및 로그아웃 처리
                 session.invalidate();
-                response.sendRedirect("tb_user_login.jsp?success=delete");
+                response.sendRedirect("login.jsp?success=delete");
             } else {
-                response.sendRedirect("tb_user_mypage.jsp?error=deleteFail");
+                response.sendRedirect("mypage.jsp?error=deleteFail");
             }
         } else {
-            response.sendRedirect("tb_user_login.jsp");
+            response.sendRedirect("login.jsp");
         }
     }
 }

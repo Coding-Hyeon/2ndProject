@@ -70,4 +70,15 @@ public class partyDAO {
 	    }
 	    return result;
 	}
+	
+    // 사용자 가입 모임 가져오기
+    public List<partyVO> getMyGroups(String userId) {
+        List<partyVO> myGroups = null;
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            myGroups = session.selectList("com.smhrd.db.Mapper.getMyGroups", userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return myGroups;
+    }
 }

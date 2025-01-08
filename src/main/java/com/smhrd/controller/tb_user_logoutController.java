@@ -13,6 +13,6 @@ public class tb_user_logoutController extends HttpServlet {
             throws ServletException, IOException {
         // 세션 초기화 및 로그아웃
         request.getSession().invalidate();
-        response.sendRedirect("tb_user_login.jsp");
+        response.sendRedirect("login.jsp");
     }
 }
