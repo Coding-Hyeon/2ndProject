@@ -1,5 +1,8 @@
 package com.smhrd.model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -82,27 +85,62 @@ public class PartyDAO {
         return count;
     }
     
-    // 모임 방 수정
+ // 모임방 정보 수정
     public int updateParty(PartyVO party) {
-        SqlSession session = sqlSessionFactory.openSession(true); // Auto-commit
-        int cnt = 0;
-        try {
-            cnt = session.update("com.smhrd.db.Mapper.updateParty", party);
-        } finally {
-            session.close();
+        String sql = "UPDATE tb_party SET party_nm = ?, party_info = ?, party_region = ?, party_file = ? WHERE party_idx = ?";
+        try (Connection conn = SqlSessionManager.getSqlSession().openSession().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, party.getPartyNm());
+            pstmt.setString(2, party.getPartyInfo());
+            pstmt.setString(3, party.getPartyRegion());
+            pstmt.setString(4, party.getPartyFile());
+            pstmt.setInt(5, party.getPartyIdx());
+
+            return pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return cnt;
+        return 0;
+    }
+    // 모임방 삭제
+    public int deleteParty(int partyIdx) {
+        String sql = "DELETE FROM tb_party WHERE party_idx = ?";
+        try (Connection conn = SqlSessionManager.getSqlSession().openSession().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, partyIdx);
+
+            return pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
-    // 모임 방 삭제
-    public int deleteParty(int partyIdx) {
-        SqlSession session = sqlSessionFactory.openSession(true); // Auto-commit
-        int cnt = 0;
-        try {
-            cnt = session.delete("com.smhrd.db.Mapper.deleteParty", partyIdx);
-        } finally {
-            session.close();
+
+	public boolean updateParty(int partyIdx, String partyTitle, String partyDescription, String partyRegion,
+			String fileName, String partyNotice) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+//기존 파일명을 가져오는 메서드
+public String getExistingFileName(int partyIdx) {
+    String sql = "SELECT party_file FROM tb_party WHERE party_idx = ?";
+    try (Connection conn = SqlSessionManager.getSqlSession().openSession().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        pstmt.setInt(1, partyIdx);
+        ResultSet rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            return rs.getString("party_file"); // 기존 파일명 반환
         }
-        return cnt;
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+    return null; // 파일명이 없을 경우 null 반환
+}
 }

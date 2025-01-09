@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,36 +19,34 @@
 
     <!-- Main Content -->
     <main>
-        <form action="editPartyProcess" method="post" enctype="multipart/form-data">
-            <div>
-                <label for="partyTitle">모임방 제목:</label>
-                <input type="text" id="partyTitle" name="partyTitle" value="기존 제목" required>
-            </div>
-            <div>
-                <label for="partyDescription">모임방 소개:</label>
-                <textarea id="partyDescription" name="partyDescription" rows="5" required>기존 소개</textarea>
-            </div>
-            <div>
-                <label for="partyRegion">모임방 지역:</label>
-                <input type="text" id="partyRegion" name="partyRegion" value="기존 지역" required>
-            </div>
-            <div>
-                <label for="partyImage">이미지 파일:</label>
-                <input type="file" id="partyImage" name="partyImage" accept="image/*">
-                <p>현재 이미지: <img src="current-image.jpg" alt="현재 이미지" class="party-image"></p>
-            </div>
-            <div>
-                <label for="partyNotice">공지사항:</label>
-                <textarea id="partyNotice" name="partyNotice" rows="5">기존 공지사항</textarea>
-            </div>
-            <div>
-                <button type="submit">수정 완료</button>
-                <button type="button" onclick="confirmDelete()">삭제하기</button>
-            </div>
-        </form>
-        <div>
-            <button onclick="location.href='partyRoom.jsp'">뒤로 가기</button>
-        </div>
+ <form action="editPartyProcess" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="partyIdx" value="${party.partyIdx}">
+    <div>
+        <label for="partyTitle">모임방 제목:</label>
+        <input type="text" id="partyTitle" name="partyTitle" value="${party.partyNm}" required>
+    </div>
+    <div>
+        <label for="partyDescription">모임방 소개:</label>
+        <textarea id="partyDescription" name="partyDescription" rows="5" required>${party.partyInfo}</textarea>
+    </div>
+    <div>
+        <label for="partyRegion">모임방 지역:</label>
+        <input type="text" id="partyRegion" name="partyRegion" value="${party.partyRegion}" required>
+    </div>
+    <div>
+        <label for="partyImage">이미지 파일:</label>
+        <input type="file" id="partyImage" name="partyImage" accept="image/*">
+        <p>현재 이미지: <img src="${party.partyFile}" alt="현재 이미지" class="party-image"></p>
+    </div>
+    <div>
+        <label for="partyNotice">공지사항:</label>
+        <textarea id="partyNotice" name="partyNotice" rows="5">${party.partyNotice}</textarea>
+    </div>
+    <div>
+        <button type="submit">수정 완료</button>
+        <button type="button" onclick="confirmDelete()">삭제하기</button>
+    </div>
+</form>
     </main>
 
     <!-- Footer -->
