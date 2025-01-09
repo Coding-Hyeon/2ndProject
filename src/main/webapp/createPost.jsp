@@ -19,6 +19,7 @@
     <!-- Main Content -->
     <main>
         <form action="createPostProcess" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="partyIdx" value="${party.partyIdx}">
             <div>
                 <label for="postTitle">글 제목:</label>
                 <input type="text" id="postTitle" name="postTitle" required>
@@ -34,6 +35,7 @@
             <div>
                 <button type="submit">글 올리기</button>
             </div>
+            
         </form>
         <div>
             <button onclick="location.href='partyRoom.jsp'">뒤로 가기</button>

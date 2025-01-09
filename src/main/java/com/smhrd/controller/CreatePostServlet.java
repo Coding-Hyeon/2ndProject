@@ -21,11 +21,18 @@ import com.smhrd.model.UserVO;
 public class CreatePostServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-
+        try {
+        	
+        	String partyIdxParam = request.getParameter("partyIdx");
+            if (partyIdxParam == null || partyIdxParam.isEmpty()) {
+                response.sendRedirect("createPost.jsp?error=invalidPartyIdx");
+                return;
+            }
+            
         // 파라미터 값 가져오기
         String postNm = request.getParameter("postTitle");
         String postContent = request.getParameter("postContent");
-        int partyIdx = Integer.parseInt(request.getParameter("partyIdx"));
+        int partyIdx = Integer.parseInt(partyIdxParam);
 
         // 파일 업로드 처리
         Part filePart = request.getPart("postImage");
@@ -58,6 +65,16 @@ public class CreatePostServlet extends HttpServlet {
             response.sendRedirect("partyRoom.jsp?partyIdx=" + partyIdx);
         } else {
             response.sendRedirect("createPost.jsp?partyIdx=" + partyIdx + "&error=fail");
+        }
+        } catch (NumberFormatException e) {
+            e.printStackTrace(); // 로그로 확인
+            response.sendRedirect("createPost.jsp?error=invalidPartyIdx");
+        } catch (IOException e) {
+            e.printStackTrace(); // 로그로 확인
+            response.sendRedirect("createPost.jsp?error=fileUploadFail");
+        } catch (Exception e) {
+            e.printStackTrace(); // 알 수 없는 오류 처리
+            response.sendRedirect("createPost.jsp?error=unknown");
         }
     }
 }

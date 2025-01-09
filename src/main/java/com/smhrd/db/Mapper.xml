@@ -140,4 +140,15 @@
         DELETE FROM tb_party_comment
         WHERE p_cmt_idx = #{cmtIdx} AND user_id = #{userId};
     </delete>
+    
+    <!--  최신글 불러오기 -->
+    <select id="selectLatestPostsByParty" resultType="com.smhrd.model.PostVO">
+    SELECT post_idx, post_nm, post_content, post_file, created_at, user_id
+    FROM tb_party_post
+    WHERE party_idx = #{partyIdx}
+    ORDER BY created_at DESC
+    LIMIT 5;
+</select>
+
+
 </mapper>

@@ -1,5 +1,7 @@
 package com.smhrd.model;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -42,5 +44,15 @@ public class PostDAO {
             session.close();
         }
         return cnt;
+    }
+    public List<PostVO> selectLatestPostsByParty(int partyIdx) {
+        SqlSession session = sqlSessionFactory.openSession(true); // Auto-commit
+        List<PostVO> postList = null;
+        try {
+            postList = session.selectList("com.smhrd.db.Mapper.selectLatestPostsByParty", partyIdx);
+        } finally {
+            session.close();
+        }
+        return postList;
     }
 }

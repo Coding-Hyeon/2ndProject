@@ -43,6 +43,8 @@
             <button onclick="showTab('latestPosts')">최신 글</button>
             <button onclick="showTab('location')">모임 위치</button>
         </section>
+        
+        
 
         <section id="home" class="tab-content">
             <h3>방 소개</h3>
@@ -56,23 +58,23 @@
         </section>
 
         <section id="latestPosts" class="tab-content" style="display:none;">
-            <button onclick="location.href='createPost.jsp'">글 쓰기</button>
-            <div id="posts">
-                <!-- Example Post -->
-                <div class="post">
-                    <h4>글 제목</h4>
-                    <p>작성자: 홍길동</p>
-                    <p>글 내용이 여기에 표시됩니다.</p>
-                    <img src="post-image.jpg" alt="글 이미지">
-                    <p>좋아요 수: 5</p>
-                    <p>작성 날짜: 2025-01-01</p>
-                    <button onclick="location.href='editPost.jsp?postId=1'">수정하기</button>
-                    <button>좋아요</button>
-                    <button>공유하기</button>
-                    <button onclick="location.href='comments.jsp?postId=1'">댓글 보기</button>
-                </div>
+    	<h2>최신 글</h2>
+    	<button onclick="location.href='createPost.jsp'">글 쓰기</button>
+    	<div id="posts">
+        <!-- 최신 글 출력 -->
+        <c:forEach var="post" items="${latestPosts}">
+            <div class="post">
+                <h3><c:out value="${post.postNm}" /></h3>
+                <p>작성자: <c:out value="${post.userId}" /></p>
+                <p>내용: <c:out value="${post.postContent}" /></p>
+                <c:if test="${not empty post.postFile}">
+                    <img src="uploads/${post.postFile}" alt="게시글 이미지">
+                </c:if>
+                <p>작성일: <c:out value="${post.createdAt}" /></p>
             </div>
-        </section>
+        </c:forEach>
+   	 	</div>
+		</section>
 
         <section id="location" class="tab-content" style="display:none;">
             <h3>모임 위치</h3>
