@@ -16,7 +16,7 @@ import com.smhrd.model.PartyVO;
 
 @WebServlet("/editPartyProcess")
 @MultipartConfig // multipart/form-data 요청 처리
-public class EditPartyProcess extends HttpServlet {
+public class EditPartyServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
