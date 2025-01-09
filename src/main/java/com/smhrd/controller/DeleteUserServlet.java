@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import com.smhrd.model.UserDAO;
 import com.smhrd.model.UserVO;
 
-@WebServlet("/deleteUser")
+@WebServlet("/deleteUserProcess")
 public class DeleteUserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();

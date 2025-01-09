@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import com.smhrd.model.UserDAO;
 import com.smhrd.model.UserVO;
 
-@WebServlet("/updateUser")
+@WebServlet("/updateUserProcess")
 public class UpdateUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
