@@ -69,10 +69,6 @@ public class EditPartyProcess extends HttpServlet {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "요청 처리 중 오류가 발생했습니다.");
         }
-        System.out.println("partyIdx: " + request.getParameter("partyIdx"));
-        System.out.println("partyTitle: " + request.getParameter("partyTitle"));
-        System.out.println("partyDescription: " + request.getParameter("partyDescription"));
-        System.out.println("partyRegion: " + request.getParameter("partyRegion"));
-        
+      
     }
 }

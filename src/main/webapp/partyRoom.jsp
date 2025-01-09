@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>모임 방</title>
 </head>
 <body>
     <!-- Header -->
@@ -19,10 +19,23 @@
     <!-- Main Content -->
     <main>
         <section class="party-info">
-            <h2 id="partyTitle">모임방 제목</h2>
-            <img src="sample-image.jpg" alt="모임 이미지" class="party-image">
-            <p class="party-creator">방장: 홍길동</p>
-            <p class="party-members">가입자 수: 10명</p>
+            <h2 id="partyTitle">
+                <c:out value="${party.partyNm}" default="모임방 제목 없음" />
+            </h2>
+            <c:choose>
+                <c:when test="${not empty party.partyFile}">
+                    <img src="uploads/${party.partyFile}" alt="모임 이미지" class="party-image" style="width:300px;height:200px;">
+                </c:when>
+                <c:otherwise>
+                    <img src="default-image.jpg" alt="기본 이미지" class="party-image" style="width:300px;height:200px;">
+                </c:otherwise>
+            </c:choose>
+            <p class="party-creator">
+                <strong>방장:</strong> <c:out value="${party.userId}" default="알 수 없음" />
+            </p>
+            <p class="party-members">
+                <strong>가입자 수:</strong> <c:out value="${party.memberCount}" default="0" />명
+            </p>
         </section>
 
         <section class="party-navigation">
