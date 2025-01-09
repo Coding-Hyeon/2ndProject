@@ -1,5 +1,6 @@
 package com.smhrd.controller;
 
+import com.google.gson.Gson;
 import com.smhrd.model.LocationDAO;
 
 import javax.servlet.ServletException;
@@ -11,34 +12,35 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-@WebServlet("/map") // "/map" URL로 매핑
+@WebServlet("/map")
 public class MapServlet extends HttpServlet {
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            // 요청에서 postIdx 가져오기
-            int postIdx = Integer.parseInt(request.getParameter("postIdx"));
+            // 파라미터 postIdx 확인
+            String postIdxParam = request.getParameter("postIdx");
+            if (postIdxParam == null || postIdxParam.isEmpty()) {
+                throw new IllegalArgumentException("postIdx parameter is missing");
+            }
 
-            // DAO를 통해 위치 정보 가져오기
+            int postIdx = Integer.parseInt(postIdxParam);
             LocationDAO locationDAO = new LocationDAO();
             Map<String, Object> location = locationDAO.getLocation(postIdx);
 
-            // 위치 정보가 있을 경우 request 속성으로 전달
-            if (location != null) {
-                request.setAttribute("latitude", location.get("latitude"));
-                request.setAttribute("longitude", location.get("longitude"));
-            } else {
-                // 데이터가 없을 경우 기본 좌표를 설정
-                request.setAttribute("latitude", 37.5665); // 서울 위도
-                request.setAttribute("longitude", 126.9780); // 서울 경도
-            }
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
 
-            // JSP로 포워딩
-            request.getRequestDispatcher("/jsp/kakaomap.jsp").forward(request, response);
+            Gson gson = new Gson();
+            if (location != null) {
+                response.getWriter().write(gson.toJson(location));
+            } else {
+                // 기본 좌표 반환
+                response.getWriter().write(gson.toJson(Map.of("latitude", 37.5665, "longitude", 126.9780)));
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid postIdx");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("{\"error\": \"Invalid request or server error\"}");
         }
     }
 }
