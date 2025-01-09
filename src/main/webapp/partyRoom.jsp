@@ -77,9 +77,63 @@
 		</section>
 
         <section id="location" class="tab-content" style="display:none;">
-            <h3>모임 위치</h3>
-            <p>아직 미구현입니다.</p>
-        </section>
+    <h3>모임 위치</h3>
+
+    <!-- 제목 -->
+    <div id="location-title">
+        <h4>모임 위치 제목</h4> <!-- 동적으로 제목 변경 가능 -->
+    </div>
+
+    <!-- 글쓰기 버튼 -->
+    <div id="location-actions">
+        <button onclick="location.href='createLocationPost.jsp'">글쓰기</button>
+    </div>
+
+    <!-- 카카오맵 표시 -->
+    <div id="map" style="width:100%; height:400px;"></div>
+
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_APP_KEY"></script>
+    <script>
+        function loadMap() {
+            // 서버에서 가져온 예제 데이터 (실제 데이터로 대체 필요)
+            const latitude = 37.5665;  // 서울 위도
+            const longitude = 126.9780; // 서울 경도
+
+            // 카카오맵 생성
+            const container = document.getElementById('map'); // 맵을 표시할 div
+            const options = {
+                center: new kakao.maps.LatLng(latitude, longitude), // 지도 중심 좌표
+                level: 3 // 지도 확대 수준
+            };
+
+            const map = new kakao.maps.Map(container, options);
+
+            // 마커 생성
+            const markerPosition = new kakao.maps.LatLng(latitude, longitude);
+            const marker = new kakao.maps.Marker({
+                position: markerPosition
+            });
+            marker.setMap(map); // 마커를 지도에 표시
+        }
+
+        // 탭 변경 시 맵 로드
+        function showTab(tabId) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.style.display = 'none'); // 모든 탭 숨김
+
+            const selectedTab = document.getElementById(tabId);
+            selectedTab.style.display = 'block'; // 선택한 탭 표시
+
+            if (tabId === 'location') {
+                // 제목 설정 (동적으로 제목을 변경할 수 있음)
+                document.getElementById('location-title').innerHTML = '<h4>현재 모임 위치</h4>';
+
+                // 맵 로드
+                loadMap();
+            }
+        }
+    </script>
+</section>
     </main>
 
     <!-- Footer -->

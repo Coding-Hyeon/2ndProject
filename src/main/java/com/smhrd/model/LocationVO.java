@@ -1,26 +1,26 @@
 package com.smhrd.model;
 
 public class LocationVO {
-    private String title; // l_post_nm
-    private String content; // l_post_content
-    private double latitude; // latitude
-    private double longitude; // longitude
+    private String l_post_nm; // 제목
+    private String l_post_content; // 내용
+    private double latitude; // 위도
+    private double longitude; // 경도
 
     // Getter & Setter
-    public String getTitle() {
-        return title;
+    public String getL_post_nm() {
+        return l_post_nm;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setL_post_nm(String l_post_nm) {
+        this.l_post_nm = l_post_nm;
     }
 
-    public String getContent() {
-        return content;
+    public String getL_post_content() {
+        return l_post_content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setL_post_content(String l_post_content) {
+        this.l_post_content = l_post_content;
     }
 
     public double getLatitude() {

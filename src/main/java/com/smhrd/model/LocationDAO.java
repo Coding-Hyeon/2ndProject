@@ -11,12 +11,12 @@ public class LocationDAO {
     private SqlSessionFactory sqlSessionFactory = SqlSessionManager.getSqlSession();
 
     // 위치 기반 글 저장 메서드
-    public boolean insertLocationPost(String title, String content, double latitude, double longitude) {
+    public boolean insertLocationPost(String l_post_nm, String l_post_content, double latitude, double longitude) {
         SqlSession session = sqlSessionFactory.openSession();
         try {
             LocationVO location = new LocationVO();
-            location.setTitle(title);
-            location.setContent(content);
+            location.setL_post_nm(l_post_nm);
+            location.setL_post_content(l_post_content);
             location.setLatitude(latitude);
             location.setLongitude(longitude);
 

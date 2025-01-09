@@ -16,8 +16,8 @@ public class locationPostProcessServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         // 폼 데이터 가져오기
-        String title = request.getParameter("title");
-        String content = request.getParameter("content");
+        String title = request.getParameter("l_post_nm");
+        String content = request.getParameter("l_post_content");
         String latitude = request.getParameter("latitude");
         String longitude = request.getParameter("longitude");
 
@@ -33,11 +33,11 @@ public class locationPostProcessServlet extends HttpServlet {
                 response.sendRedirect("partyRoom.jsp");
             } else {
                 // 실패 시 에러 페이지 또는 경고 메시지 출력
-                response.sendRedirect("error.jsp?message=Failed to save location post.");
+
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("error.jsp?message=An unexpected error occurred.");
+
         }
     }
 }
