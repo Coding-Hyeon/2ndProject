@@ -52,15 +52,30 @@
     </select>
     
     <!-- 지역에 맞는 모든 모임 가져오기 -->
-    <select id="selectPartiesByRegion" resultType="com.smhrd.model.PartyVO">
-        SELECT p.party_idx, p.party_nm, p.party_info, p.party_region, p.party_file, 
-               COUNT(j.user_id) AS memberCount, p.user_id, p.created_at
-        FROM tb_party p
-        LEFT JOIN tb_joning j ON p.party_idx = j.party_idx
-        WHERE p.party_region = #{userRegion}
-        GROUP BY p.party_idx;
-    </select>
+	<resultMap id="PartyResultMap" type="com.smhrd.model.PartyVO">
+	    <result property="partyIdx" column="party_idx"/>
+	    <result property="partyNm" column="party_nm"/>
+	    <result property="partyInfo" column="party_info"/>
+	    <result property="partyRegion" column="party_region"/>
+	    <result property="userId" column="user_id"/>
+	    <result property="createdAt" column="created_at"/>
+	</resultMap>
+	
+	<select id="selectPartiesByRegion" resultMap="PartyResultMap">
+	    SELECT party_idx, party_nm, CAST(party_info AS CHAR) AS party_info, party_region, 
+	           user_id, created_at
+	    FROM tb_party
+	    WHERE party_region = #{userRegion};
+	</select>
     
+    <!-- 모임 상세정보 -->
+    <select id="selectPartyByIdx" resultMap="PartyResultMap">
+	    SELECT party_idx, party_nm, party_info, party_region, 
+	           party_file, user_id, created_at
+	    FROM tb_party
+	    WHERE party_idx = #{partyIdx};
+	</select>
+
     <!-- 모임 방 생성 -->
     <insert id="insertParty">
         INSERT INTO tb_party (party_nm, party_info, party_region, party_file, user_id)

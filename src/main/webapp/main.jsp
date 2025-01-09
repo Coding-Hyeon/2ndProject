@@ -31,7 +31,7 @@
         <section>
             <h2>무엇을 하시겠습니까?</h2>
             <div>
-                <button onclick="location.href='findParty.jsp'">모임 찾기</button>
+                <button onclick="location.href='<%= request.getContextPath() %>/findPartyProcess'">모임 찾기</button>
             </div>
             <div>
                 <button onclick="location.href='myParty.jsp'">나의 모임</button>
