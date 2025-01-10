@@ -1,10 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@page import="com.smhrd.model.PostVO"%>
+<%@page import="java.util.List"%>
+<%@page import="com.smhrd.model.PostDAO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%
+    String partyIdxParam = request.getParameter("partyIdx");
+    if (partyIdxParam == null || partyIdxParam.isEmpty()) {
+        System.out.println("Error: partyIdx is null or empty");
+        throw new IllegalArgumentException("partyIdx가 전달되지 않았습니다.");
+    }
+    int partyIdx = Integer.parseInt(partyIdxParam);
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시글 생성</title>
 </head>
 <body>
     <!-- Header -->
@@ -19,7 +30,7 @@
     <!-- Main Content -->
     <main>
         <form action="createPostProcess" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="partyIdx" value="${party.partyIdx}">
+            <input type="hidden" name="partyIdx" value="<%= partyIdx %>">
             <div>
                 <label for="postTitle">글 제목:</label>
                 <input type="text" id="postTitle" name="postTitle" required>
@@ -35,11 +46,7 @@
             <div>
                 <button type="submit">글 올리기</button>
             </div>
-            
         </form>
-        <div>
-            <button onclick="location.href='partyRoom.jsp'">뒤로 가기</button>
-        </div>
     </main>
 
     <!-- Footer -->

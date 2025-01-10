@@ -1,5 +1,16 @@
+<%@page import="com.smhrd.model.PostVO"%>
+<%@page import="java.util.List"%>
+<%@page import="com.smhrd.model.PostDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%
+    String debugPartyIdx = request.getParameter("partyIdx");
+    System.out.println("Debug partyIdx: " + debugPartyIdx);
+%>
+<%
+    System.out.println("Debug: party = " + request.getAttribute("party"));
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,6 +53,12 @@
             <button onclick="showTab('home')">홈</button>
             <button onclick="showTab('latestPosts')">최신 글</button>
             <button onclick="showTab('location')">모임 위치</button>
+            <c:if test="${not empty party.partyIdx}">
+        <button onclick="location.href='createPost.jsp?partyIdx=${party.partyIdx}'">글쓰기</button>
+    </c:if>
+    <c:if test="${empty party.partyIdx}">
+        <p>partyIdx가 설정되지 않았습니다. 관리자에게 문의하세요.</p>
+    </c:if>
         </section>
         
         
@@ -58,22 +75,33 @@
         </section>
 
         <section id="latestPosts" class="tab-content" style="display:none;">
-    	<h2>최신 글</h2>
-    	<button onclick="location.href='createPost.jsp'">글 쓰기</button>
-    	<div id="posts">
-        <!-- 최신 글 출력 -->
-        <c:forEach var="post" items="${latestPosts}">
-            <div class="post">
-                <h3><c:out value="${post.postNm}" /></h3>
-                <p>작성자: <c:out value="${post.userId}" /></p>
-                <p>내용: <c:out value="${post.postContent}" /></p>
-                <c:if test="${not empty post.postFile}">
-                    <img src="uploads/${post.postFile}" alt="게시글 이미지">
-                </c:if>
-                <p>작성일: <c:out value="${post.createdAt}" /></p>
-            </div>
-        </c:forEach>
-   	 	</div>
+    
+    <h3>최신 글</h3>
+    <c:if test="${not empty party.partyIdx}">
+        <button onclick="location.href='createPost.jsp?partyIdx=${party.partyIdx}'">글쓰기</button>
+    </c:if>
+    <c:if test="${empty party.partyIdx}">
+        <p>partyIdx가 설정되지 않았습니다. 관리자에게 문의하세요.</p>
+    </c:if>
+    <%
+        int partyIdx = Integer.parseInt(request.getParameter("partyIdx"));
+        PostDAO postDAO = new PostDAO();
+        List<PostVO> posts = postDAO.getPostsByPartyIdx(partyIdx);
+    %>
+    <button onclick="location.href='createPost.jsp?partyIdx=<%= partyIdx %>'">글쓰기</button>
+    <ul>
+        <%
+            for (PostVO post : posts) {
+        %>
+            <li>
+                <a href="viewPost.jsp?postIdx=<%= post.getPostIdx() %>">
+                    <%= post.getPostNm() %>
+                </a>
+            </li>
+        <%
+            }
+        %>
+    </ul>
 		</section>
 
         <section id="location" class="tab-content" style="display:none;">
@@ -86,8 +114,14 @@
 
     <!-- 글쓰기 버튼 -->
     <div id="location-actions">
-        <button onclick="location.href='createLocationPost.jsp'">글쓰기</button>
+        <c:if test="${not empty party.partyIdx}">
+    <button onclick="location.href='createPost.jsp?partyIdx=${party.partyIdx}'">글쓰기</button>
+		</c:if>
+		<c:if test="${empty party.partyIdx}">
+    <p>partyIdx가 설정되지 않았습니다. 관리자에게 문의하세요.</p>
+		</c:if>
     </div>
+  
 
     <!-- 카카오맵 표시 -->
     <div id="map" style="width:100%; height:400px;"></div>
@@ -155,5 +189,7 @@
             document.getElementById('ownerActions').style.display = 'block';
         }
     </script>
+    
+    <% System.out.println("Debug: partyIdx = " + request.getParameter("partyIdx")); %>
 </body>
 </html>

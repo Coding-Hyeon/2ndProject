@@ -83,14 +83,14 @@
 	</insert>
     
     <!-- 특정 모임 방 정보 가져오기 -->
-    <select id="selectPartyById" resultType="com.smhrd.model.PartyVO">
+    <select id="selectPartyById" parameterType="int" resultType="com.smhrd.model.PartyVO">
         SELECT party_idx, party_nm, party_info, party_region, party_file, user_id, created_at
         FROM tb_party
         WHERE party_idx = #{partyIdx};
     </select>
 
     <!-- 모임 방 가입된 회원 수 가져오기 -->
-    <select id="getMemberCount" resultType="int">
+    <select id="getMemberCount" parameterType="int" resultType="int">
         SELECT COUNT(*) 
         FROM tb_joning
         WHERE party_idx = #{partyIdx};
@@ -128,7 +128,14 @@
             p_post_file = #{postFile}
         WHERE p_post_idx = #{postIdx} AND user_id = #{userId};
     </update>
-
+    
+    <!-- 게시글 확인 -->
+	<select id="getPostById" parameterType="int" resultType="com.smhrd.model.PostVO">
+    SELECT postIdx, postNm, postContent, postFile, createdAt, userId
+    FROM tbPartyPost
+    WHERE postIdx = #{postIdx}
+	</select>
+	
     <!-- 게시글 삭제 -->
     <delete id="deletePost">
         DELETE FROM tb_party_post

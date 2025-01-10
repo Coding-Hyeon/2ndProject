@@ -76,5 +76,6 @@ public class CreatePostServlet extends HttpServlet {
             e.printStackTrace(); // 알 수 없는 오류 처리
             response.sendRedirect("createPost.jsp?error=unknown");
         }
+        
     }
 }

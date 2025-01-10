@@ -11,6 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 public class CreatePartyFormServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 모임 생성 폼 페이지로 포워딩
-        request.getRequestDispatcher("createPartyForm.jsp").forward(request, response);
+        request.getRequestDispatcher("createParty.jsp").forward(request, response);
     }
 }

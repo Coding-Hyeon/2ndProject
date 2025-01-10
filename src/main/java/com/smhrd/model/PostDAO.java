@@ -1,5 +1,6 @@
 package com.smhrd.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -66,4 +67,27 @@ public class PostDAO {
         }
         return cnt;
     }
+    public List<PostVO> getPostsByPartyIdx(int partyIdx) {
+        List<PostVO> posts = new ArrayList<>();
+        try (SqlSession session = (SqlSession) SqlSessionManager.getSqlSession()) {
+            posts = session.selectList("PostMapper.getPostsByPartyIdx", partyIdx);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return posts;
+    }
+    
+    public PostVO getPostById(int postIdx) {
+        PostVO post = null;
+        try (SqlSession session = (SqlSession) SqlSessionManager.getSqlSession()) {
+            post = session.selectOne("PostMapper.getPostById", postIdx);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return post;
+        
+        
+    }
+    
+    
 }

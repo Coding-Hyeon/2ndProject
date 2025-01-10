@@ -2,7 +2,6 @@ package com.smhrd.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +14,6 @@ import javax.servlet.http.Part;
 import com.smhrd.model.PartyDAO;
 import com.smhrd.model.PartyVO;
 import com.smhrd.model.UserVO;
-
 
 @WebServlet("/createPartyProcess")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 50)
@@ -56,13 +54,13 @@ public class CreatePartyServlet extends HttpServlet {
             // VO 객체 생성
             PartyVO party = new PartyVO(partyNm, partyInfo, partyRegion, fileName, userId);
 
-            // DAO 호출
+            // DAO 호출 및 생성된 partyIdx 가져오기
             PartyDAO dao = new PartyDAO();
-            int cnt = dao.insertParty(party);
+            int partyIdx = dao.insertPartyAndGetIdx(party); // 수정된 DAO 메서드 사용
 
             // 결과 처리
-            if (cnt > 0) {
-                response.sendRedirect("partyRoom.jsp?partyIdx=" + party.getPartyIdx());
+            if (partyIdx > 0) {
+                response.sendRedirect("partyRoomProcess?partyIdx=" + partyIdx);
             } else {
                 response.sendRedirect("createParty.jsp?error=fail");
             }

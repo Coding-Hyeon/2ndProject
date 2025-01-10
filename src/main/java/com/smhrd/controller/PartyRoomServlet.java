@@ -2,7 +2,6 @@ package com.smhrd.controller;
 
 import java.io.IOException;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,10 +16,8 @@ import com.smhrd.model.PostVO;
 @WebServlet("/partyRoomProcess")
 public class PartyRoomServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         // 모임 방 ID 가져오기
         String partyIdxStr = request.getParameter("partyIdx");
-
         if (partyIdxStr == null || partyIdxStr.isEmpty()) {
             request.setAttribute("errorMsg", "모임 방 ID가 제공되지 않았습니다.");
             request.getRequestDispatcher("errorPage.jsp").forward(request, response);
@@ -38,8 +35,8 @@ public class PartyRoomServlet extends HttpServlet {
         }
 
         // 모임 방 정보 가져오기
-        PartyDAO dao = new PartyDAO();
-        PartyVO party = dao.selectPartyById(partyIdx);
+        PartyDAO partyDAO = new PartyDAO();
+        PartyVO party = partyDAO.selectPartyById(partyIdx);
         if (party == null) {
             request.setAttribute("errorMsg", "해당 모임 방 정보를 찾을 수 없습니다.");
             request.getRequestDispatcher("errorPage.jsp").forward(request, response);
@@ -47,18 +44,27 @@ public class PartyRoomServlet extends HttpServlet {
         }
 
         // 모임 방 가입자 수 가져오기
-        int memberCount = dao.getMemberCount(partyIdx);
+        int memberCount = partyDAO.getMemberCount(partyIdx);
         party.setMemberCount(memberCount);
 
         // 최신 글 정보 가져오기
         PostDAO postDAO = new PostDAO();
         List<PostVO> latestPosts = postDAO.selectLatestPostsByParty(partyIdx);
 
+        // 디버깅 로그 추가
+        System.out.println("PartyRoomServlet: partyIdx = " + partyIdx);
+        System.out.println("PartyRoomServlet: partyNm = " + party.getPartyNm());
+        System.out.println("PartyRoomServlet: latestPosts count = " + latestPosts.size());
+
         // JSP에 전달할 데이터 설정
         request.setAttribute("party", party);
         request.setAttribute("latestPosts", latestPosts);
+        
 
         // JSP로 포워딩
         request.getRequestDispatcher("partyRoom.jsp").forward(request, response);
+        
     }
+    
+    
 }

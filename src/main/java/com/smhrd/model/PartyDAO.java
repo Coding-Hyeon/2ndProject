@@ -52,16 +52,27 @@ public class PartyDAO {
     
     // 모임 방 생성
     public int insertParty(PartyVO party) {
-        SqlSession session = sqlSessionFactory.openSession(true); // Auto-commit
-        int cnt = 0;
-        try {
-            cnt = session.insert("com.smhrd.db.Mapper.insertParty", party);
-        } finally {
-            session.close();
+        int generatedPartyIdx = 0;
+        String sql = "INSERT INTO tb_party (party_nm, party_info, party_region, party_file, user_id) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = sqlSessionFactory.openSession().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, party.getPartyNm());
+            pstmt.setString(2, party.getPartyInfo());
+            pstmt.setString(3, party.getPartyRegion());
+            pstmt.setString(4, party.getPartyFile());
+            pstmt.setString(5, party.getUserId());
+            pstmt.executeUpdate();
+            try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    generatedPartyIdx = rs.getInt(1);
+                    System.out.println("Generated partyIdx: " + generatedPartyIdx);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return cnt;
+        return generatedPartyIdx;
     }
-    
     // 특정 모임 방 정보 가져오기
     public PartyVO selectPartyById(int partyIdx) {
         SqlSession session = sqlSessionFactory.openSession();
@@ -164,4 +175,27 @@ public class PartyDAO {
 	    }
 	    return result;
 	}
+
+	public int insertPartyAndGetIdx(PartyVO party) {
+        int generatedPartyIdx = 0;
+        String sql = "INSERT INTO tb_party (party_nm, party_info, party_region, party_file, user_id) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = sqlSessionFactory.openSession().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, party.getPartyNm());
+            pstmt.setString(2, party.getPartyInfo());
+            pstmt.setString(3, party.getPartyRegion());
+            pstmt.setString(4, party.getPartyFile());
+            pstmt.setString(5, party.getUserId());
+            pstmt.executeUpdate();
+            try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    generatedPartyIdx = rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return generatedPartyIdx;
+    }
 }
+
