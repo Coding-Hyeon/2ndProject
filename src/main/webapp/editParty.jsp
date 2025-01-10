@@ -45,6 +45,7 @@
     <div>
         <button type="submit">수정 완료</button>
         <button type="button" onclick="confirmDelete()">삭제하기</button>
+        <a href="deletePartyProcess?partyIdx=${party.partyIdx}">모임 삭제</a>
     </div>
 </form>
     </main>
@@ -61,5 +62,14 @@
             }
         }
     </script>
+    
+<script>
+    function confirmEditSuccess() {
+        alert('수정이 완료되었습니다.');
+        location.href = 'partyRoom.jsp';
+    }
+</script>
+
+
 </body>
 </html>
