@@ -49,5 +49,8 @@
 	<c:if test="${empty partyList}">
 	    <p>현재 지역에 맞는 모임이 없습니다.</p>
 	</c:if>
+	<div>
+        <button onclick="location.href='main.jsp'">뒤로 가기</button>
+    </div>
 </body>
 </html>

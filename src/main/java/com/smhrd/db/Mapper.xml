@@ -42,14 +42,6 @@
     <select id="selectAllParties" resultType="com.smhrd.model.PartyVO">
         SELECT * FROM tb_party WHERE party_region = #{userRegion};
     </select>
-
-    <!-- 내가 가입한 모임 가져오기 -->
-    <select id="selectMyParties" resultType="com.smhrd.model.PartyVO">
-        SELECT p.* 
-        FROM tb_party p
-        JOIN tb_joning j ON p.party_idx = j.party_idx
-        WHERE j.user_id = #{userId};
-    </select>
     
     <!-- 지역에 맞는 모든 모임 가져오기 -->
 	<resultMap id="PartyResultMap" type="com.smhrd.model.PartyVO">
@@ -67,6 +59,14 @@
 	    FROM tb_party
 	    WHERE party_region = #{userRegion};
 	</select>
+	
+    <!-- 내가 가입한 모임 가져오기 -->
+	<select id="selectMyParties" resultMap="PartyResultMap">
+	    SELECT p.party_idx, p.party_nm, p.party_info, p.party_region
+	    FROM tb_party p
+	    JOIN tb_joning j ON p.party_idx = j.party_idx
+	    WHERE j.user_id = #{userId} AND j.agree_yn = 'y';
+	</select>
     
     <!-- 모임 상세정보 -->
     <select id="selectPartyByIdx" resultMap="PartyResultMap">
@@ -77,7 +77,7 @@
 	</select>
 
     <!-- 모임 방 생성 -->
-	<insert id="insertParty" parameterType="com.smhrd.model.PartyVO">
+	<insert id="insertParty" useGeneratedKeys="true" keyProperty="partyIdx">
 	    INSERT INTO tb_party (party_nm, party_info, party_region, party_file, user_id)
 	    VALUES (#{partyNm}, #{partyInfo}, #{partyRegion}, #{partyFile}, #{userId});
 	</insert>
@@ -174,8 +174,8 @@
 	
 	<!-- 가입하기 소개글 전송 -->
 	<insert id="insertJoinRequest" parameterType="com.smhrd.model.JoinRequestVO">
-	    INSERT INTO tb_joning (party_idx, user_id, join_intro)
-	    VALUES (#{partyIdx}, #{userId}, #{joinIntro})
+	    INSERT INTO tb_joning (party_idx, user_id, join_intro, agree_yn)
+	    VALUES (#{partyIdx}, #{userId}, #{joinIntro}, #{agreeYn});
 	</insert>
 
 
