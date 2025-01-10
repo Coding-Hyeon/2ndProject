@@ -77,10 +77,10 @@
 	</select>
 
     <!-- 모임 방 생성 -->
-    <insert id="insertParty">
-        INSERT INTO tb_party (party_nm, party_info, party_region, party_file, user_id)
-        VALUES (#{partyNm}, #{partyInfo}, #{partyRegion}, #{partyFile}, #{userId});
-    </insert>
+	<insert id="insertParty" parameterType="com.smhrd.model.PartyVO">
+	    INSERT INTO tb_party (party_nm, party_info, party_region, party_file, user_id)
+	    VALUES (#{partyNm}, #{partyInfo}, #{partyRegion}, #{partyFile}, #{userId});
+	</insert>
     
     <!-- 특정 모임 방 정보 가져오기 -->
     <select id="selectPartyById" resultType="com.smhrd.model.PartyVO">
@@ -158,12 +158,18 @@
     
     <!--  최신글 불러오기 -->
     <select id="selectLatestPostsByParty" resultType="com.smhrd.model.PostVO">
-    SELECT post_idx, post_nm, post_content, post_file, created_at, user_id
-    FROM tb_party_post
-    WHERE party_idx = #{partyIdx}
-    ORDER BY created_at DESC
-    LIMIT 5;
-</select>
+	    SELECT post_idx, post_nm, post_content, post_file, created_at, user_id
+	    FROM tb_party_post
+	    WHERE party_idx = #{partyIdx}
+	    ORDER BY created_at DESC
+	    LIMIT 5;
+	</select>
+	
+	<!-- 가입하기 소개글 전송 -->
+	<insert id="insertJoinRequest" parameterType="com.smhrd.model.JoinRequestVO">
+	    INSERT INTO tb_joning (party_idx, user_id, join_intro)
+	    VALUES (#{partyIdx}, #{userId}, #{joinIntro})
+	</insert>
 
 
 </mapper>

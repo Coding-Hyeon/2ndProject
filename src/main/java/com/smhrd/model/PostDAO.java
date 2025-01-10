@@ -55,4 +55,15 @@ public class PostDAO {
         }
         return postList;
     }
+    
+    public int insertParty(PartyVO party) {
+        SqlSession session = sqlSessionFactory.openSession(true); // Auto-commit
+        int cnt = 0;
+        try {
+            cnt = session.insert("com.smhrd.db.Mapper.insertParty", party);
+        } finally {
+            session.close();
+        }
+        return cnt;
+    }
 }

@@ -19,5 +19,11 @@
     <c:if test="${empty party}">
         <p>해당 방의 정보를 찾을 수 없습니다.</p>
     </c:if>
+    
+    <!-- 가입하기 버튼 -->
+	<form action="<%= request.getContextPath() %>/createJoinRequest" method="get">
+	    <input type="hidden" name="partyIdx" value="${party.partyIdx}">
+	    <button type="submit" class="btn btn-primary">가입하기</button>
+	</form>
 </body>
 </html>

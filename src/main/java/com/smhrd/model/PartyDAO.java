@@ -154,4 +154,16 @@ public class PartyDAO {
 	    }
 	    return party;
 	}
+	
+	public int insertJoinRequest(String userId, int partyIdx, String joinIntro) {
+	    SqlSession session = sqlSessionFactory.openSession(true); // Auto-commit
+	    int result = 0;
+	    try {
+	        JoinRequestVO joinRequest = new JoinRequestVO(userId, partyIdx, joinIntro);
+	        result = session.insert("com.smhrd.db.Mapper.insertJoinRequest", joinRequest);
+	    } finally {
+	        session.close();
+	    }
+	    return result;
+	}
 }

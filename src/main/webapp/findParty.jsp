@@ -11,6 +11,10 @@
     <!-- Header -->
     <header>
     <h1>내 지역의 모임 목록</h1>
+    <!-- 모임 생성 버튼 -->
+	<form action="<%= request.getContextPath() %>/createPartyForm" method="get">
+	    <button type="submit" class="btn btn-success">모임 생성</button>
+	</form>
 	<c:if test="${not empty partyList}">
 	    <table border="1">
 	        <thead>
@@ -31,7 +35,11 @@
 	                    <td>${party.createdAt}</td>
 	                    <td>
 	                        <!-- 상세 정보로 이동 -->
-	                        <a href="partyDetail.jsp?partyIdx=${party.partyIdx}">가입하기</a>
+						<form action="<%= request.getContextPath() %>/partyDetailProcess" method="get">
+						    <input type="hidden" name="partyIdx" value="${party.partyIdx}">
+						    <button type="submit" class="btn btn-primary">가입하기</button>
+						</form>
+
 	                    </td>
 	                </tr>
 	            </c:forEach>

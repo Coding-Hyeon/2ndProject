@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.smhrd.model.PartyDAO;
 import com.smhrd.model.PartyVO;
 
-@WebServlet("/partyDetail")
+@WebServlet("/partyDetailProcess")
 public class PartyDetailServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int partyIdx = Integer.parseInt(request.getParameter("partyIdx"));
@@ -24,6 +24,6 @@ public class PartyDetailServlet extends HttpServlet {
             request.setAttribute("errorMsg", "해당 방의 정보를 찾을 수 없습니다.");
         }
         
-        request.getRequestDispatcher("partyDetail.jsp").forward(request, response);
+        request.getRequestDispatcher("partyDetails.jsp").forward(request, response);
     }
 }
