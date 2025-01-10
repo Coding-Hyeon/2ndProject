@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,46 +10,44 @@
 <body>
     <!-- Header -->
     <header>
-        <h1>모임 찾기</h1>
-        <nav>
-            <button onclick="location.href='myPage.jsp'">마이페이지</button>
-            <button onclick="location.href='logoutProcess'">로그아웃</button>
-        </nav>
-    </header>
+    <h1>내 지역의 모임 목록</h1>
+    <!-- 모임 생성 버튼 -->
+	<form action="<%= request.getContextPath() %>/createPartyForm" method="get">
+	    <button type="submit" class="btn btn-success">모임 생성</button>
+	</form>
+	<c:if test="${not empty partyList}">
+	    <table border="1">
+	        <thead>
+	            <tr>
+	                <th>방 제목</th>
+	                <th>방 지역</th>
+	                <th>방 생성자</th>
+	                <th>생성 날짜</th>
+	                <th>가입하기</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <c:forEach var="party" items="${partyList}">
+	                <tr>
+	                    <td>${party.partyNm}</td>
+	                    <td>${party.partyRegion}</td>
+	                    <td>${party.userId}</td>
+	                    <td>${party.createdAt}</td>
+	                    <td>
+	                        <!-- 상세 정보로 이동 -->
+						<form action="<%= request.getContextPath() %>/partyDetailProcess" method="get">
+						    <input type="hidden" name="partyIdx" value="${party.partyIdx}">
+						    <button type="submit" class="btn btn-primary">가입하기</button>
+						</form>
 
-    <!-- Main Content -->
-    <main>
-        <section>
-            <div>
-                <button onclick="location.href='createParty.jsp'">모임 방 생성</button>
-            </div>
-
-            <h2>추천 모임 방</h2>
-            <div id="party-list">
-                <!-- Sample Party Room -->
-                <div class="party-room">
-                    <img src="sample-image.jpg" alt="모임 이미지" class="party-image">
-                    <h3 class="party-title">모임 방 제목</h3>
-                    <p class="party-creator">방장: 홍길동</p>
-                    <p class="party-region">지역: 서울</p>
-                    <p class="party-members">가입자 수: 10명</p>
-                    <button onclick="viewPartyDetails(1)">가입하기</button>
-                </div>
-                <!-- Add dynamic content here with server-side rendering or AJAX -->
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 YourWebsite</p>
-    </footer>
-
-    <script>
-        function viewPartyDetails(partyId) {
-            // Redirect to party details page
-            location.href = `partyDetails.jsp?partyId=${partyId}`;
-        }
-    </script>
+	                    </td>
+	                </tr>
+	            </c:forEach>
+	        </tbody>
+	    </table>
+	</c:if>
+	<c:if test="${empty partyList}">
+	    <p>현재 지역에 맞는 모임이 없습니다.</p>
+	</c:if>
 </body>
 </html>

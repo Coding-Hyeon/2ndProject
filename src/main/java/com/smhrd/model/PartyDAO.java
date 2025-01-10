@@ -124,21 +124,44 @@ public class PartyDAO {
 	}
 
 
-//기존 파일명을 가져오는 메서드
-public String getExistingFileName(int partyIdx) {
-    String sql = "SELECT party_file FROM tb_party WHERE party_idx = ?";
-    try (Connection conn = SqlSessionManager.getSqlSession().openSession().getConnection();
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-        pstmt.setInt(1, partyIdx);
-        ResultSet rs = pstmt.executeQuery();
-
-        if (rs.next()) {
-            return rs.getString("party_file"); // 기존 파일명 반환
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-    return null; // 파일명이 없을 경우 null 반환
-}
+	//기존 파일명을 가져오는 메서드
+	public String getExistingFileName(int partyIdx) {
+	    String sql = "SELECT party_file FROM tb_party WHERE party_idx = ?";
+	    try (Connection conn = SqlSessionManager.getSqlSession().openSession().getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	
+	        pstmt.setInt(1, partyIdx);
+	        ResultSet rs = pstmt.executeQuery();
+	
+	        if (rs.next()) {
+	            return rs.getString("party_file"); // 기존 파일명 반환
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return null; // 파일명이 없을 경우 null 반환
+	}
+	
+	public PartyVO selectPartyByIdx(int partyIdx) {
+	    SqlSession session = sqlSessionFactory.openSession();
+	    PartyVO party = null;
+	    try {
+	        party = session.selectOne("com.smhrd.db.Mapper.selectPartyByIdx", partyIdx);
+	    } finally {
+	        session.close();
+	    }
+	    return party;
+	}
+	
+	public int insertJoinRequest(String userId, int partyIdx, String joinIntro) {
+	    SqlSession session = sqlSessionFactory.openSession(true); // Auto-commit
+	    int result = 0;
+	    try {
+	        JoinRequestVO joinRequest = new JoinRequestVO(userId, partyIdx, joinIntro);
+	        result = session.insert("com.smhrd.db.Mapper.insertJoinRequest", joinRequest);
+	    } finally {
+	        session.close();
+	    }
+	    return result;
+	}
 }
