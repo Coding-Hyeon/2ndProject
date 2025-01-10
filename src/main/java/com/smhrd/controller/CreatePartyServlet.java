@@ -56,13 +56,16 @@ public class CreatePartyServlet extends HttpServlet {
             // VO 객체 생성
             PartyVO party = new PartyVO(partyNm, partyInfo, partyRegion, fileName, userId);
 
-            // DAO 호출
+            // DAO 호출하여 모임 생성
             PartyDAO dao = new PartyDAO();
-            int cnt = dao.insertParty(party);
+            int partyIdx = dao.insertParty(party);  // 생성된 모임의 partyIdx 값
+            System.out.println("Generated partyIdx: " + partyIdx); // partyIdx 확인 로그
+            
+            if (partyIdx > 0) {
+                // 방 생성 후, 자동으로 해당 모임에 가입 처리 (방장은 'y'로 가입)
+                dao.insertJoinRequest(userId, partyIdx, "방장으로 자동 가입됨", 'y');  // 자동 가입, 'y'로 설정
 
-            // 결과 처리
-            if (cnt > 0) {
-                response.sendRedirect("partyRoom.jsp?partyIdx=" + party.getPartyIdx());
+                response.sendRedirect("partyRoom.jsp?partyIdx=" + partyIdx);
             } else {
                 response.sendRedirect("createParty.jsp?error=fail");
             }

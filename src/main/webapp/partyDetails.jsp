@@ -25,5 +25,9 @@
 	    <input type="hidden" name="partyIdx" value="${party.partyIdx}">
 	    <button type="submit" class="btn btn-primary">가입하기</button>
 	</form>
+	
+	<div>
+        <button onclick="location.href='main.jsp'">뒤로 가기</button>
+    </div>
 </body>
 </html>

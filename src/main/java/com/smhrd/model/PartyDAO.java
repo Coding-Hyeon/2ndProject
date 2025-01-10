@@ -32,6 +32,17 @@ public class PartyDAO {
         List<PartyVO> myPartyList = null;
         try {
             myPartyList = session.selectList("com.smhrd.db.Mapper.selectMyParties", userId);
+            if (myPartyList == null || myPartyList.isEmpty()) {
+                System.out.println("No parties found for user: " + userId);
+            } else {
+                for (PartyVO party : myPartyList) {
+                    if (party == null) {
+                        System.out.println("Null party object found!");
+                    } else {
+                        System.out.println("Party name: " + party.getPartyNm());  // Log party name
+                    }
+                }
+            }
         } finally {
             session.close();
         }
@@ -55,11 +66,14 @@ public class PartyDAO {
         SqlSession session = sqlSessionFactory.openSession(true); // Auto-commit
         int cnt = 0;
         try {
+            // 모임 삽입
             cnt = session.insert("com.smhrd.db.Mapper.insertParty", party);
+            // 생성된 partyIdx 값 확인
+            System.out.println("Generated partyIdx: " + party.getPartyIdx()); // 자동 생성된 partyIdx 출력
+            return party.getPartyIdx(); // 자동 생성된 partyIdx 반환
         } finally {
             session.close();
         }
-        return cnt;
     }
     
     // 특정 모임 방 정보 가져오기
@@ -153,11 +167,11 @@ public class PartyDAO {
 	    return party;
 	}
 	
-	public int insertJoinRequest(String userId, int partyIdx, String joinIntro) {
+	public int insertJoinRequest(String userId, int partyIdx, String joinIntro, char agreeYn) {
 	    SqlSession session = sqlSessionFactory.openSession(true); // Auto-commit
 	    int result = 0;
 	    try {
-	        JoinRequestVO joinRequest = new JoinRequestVO(userId, partyIdx, joinIntro);
+	        JoinRequestVO joinRequest = new JoinRequestVO(userId, partyIdx, joinIntro, agreeYn);
 	        result = session.insert("com.smhrd.db.Mapper.insertJoinRequest", joinRequest);
 	    } finally {
 	        session.close();

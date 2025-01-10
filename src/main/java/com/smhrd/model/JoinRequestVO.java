@@ -4,11 +4,13 @@ public class JoinRequestVO {
     private String userId;
     private int partyIdx;
     private String joinIntro;
+    private char agreeYn;
 
-    public JoinRequestVO(String userId, int partyIdx, String joinIntro) {
+    public JoinRequestVO(String userId, int partyIdx, String joinIntro, char agreeYn) {
         this.userId = userId;
         this.partyIdx = partyIdx;
         this.joinIntro = joinIntro;
+        this.agreeYn = agreeYn;
     }
 
     // Getter와 Setter 추가
@@ -20,4 +22,7 @@ public class JoinRequestVO {
 
     public String getJoinIntro() { return joinIntro; }
     public void setJoinIntro(String joinIntro) { this.joinIntro = joinIntro; }
+    
+    public char getAgreeYn() { return agreeYn; }
+    public void setAgreeYn(char agreeYn) { this.agreeYn = agreeYn; }
 }

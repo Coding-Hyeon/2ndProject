@@ -28,9 +28,12 @@ public class SubmitJoinRequestServlet extends HttpServlet {
         
         String userId = user.getUserId();
         
-        // DAO 호출하여 가입 신청 저장
+        // `agree_yn` 기본값을 'n'으로 설정 (가입 대기 상태)
+        char agreeYn = 'n';
+        
+        // DAO 호출하여 가입 신청 저장 (가입 신청 시 'agree_yn'을 'n'으로 설정)
         PartyDAO dao = new PartyDAO();
-        int result = dao.insertJoinRequest(userId, partyIdx, joinIntro);
+        int result = dao.insertJoinRequest(userId, partyIdx, joinIntro, agreeYn);
         
         if (result > 0) {
             // 가입 신청 성공 후 리다이렉트
