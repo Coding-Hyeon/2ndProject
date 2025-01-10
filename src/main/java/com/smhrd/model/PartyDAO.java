@@ -3,6 +3,7 @@ package com.smhrd.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -104,24 +105,21 @@ public class PartyDAO {
         return 0;
     }
     // 모임방 삭제
-    public int deleteParty(int partyIdx) {
+    public int deleteParty(int partyIdx) throws SQLException {
         String sql = "DELETE FROM tb_party WHERE party_idx = ?";
         try (Connection conn = SqlSessionManager.getSqlSession().openSession().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, partyIdx);
-
             return pstmt.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("모임 삭제 중 오류 발생: " + e.getMessage());
+            throw e; // 예외를 호출한 서블릿으로 전달
         }
-        return 0;
     }
-
-
 	public boolean updateParty(int partyIdx, String partyTitle, String partyDescription, String partyRegion,
 			String fileName, String partyNotice) {
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 
